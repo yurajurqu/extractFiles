@@ -5,11 +5,14 @@ from shutil import move
 # basedir = 'd:\\content\\buch\\0fin\\'
 # basedir = 'd:\\c\\tut\\cross\\'
 # basedir="g:\\cont\\tut\\net\\"
+basedir="d:\\cont\\tut\\forensics\\"
+# basedir="d:\\cont\\tut\\arch\\ts\\"
 # basedir = 'g:\\content\\buch\\0raspberrypi\\'
 # basedir="e:\\omar\\tor\\libros\\"
-basedir = 'E:\\omar\\tor\\tut\\cross\\'
+# basedir = 'E:\\omar\\tor\\tut\\arch\\'
 # basedir="H:\\cont\\tut\\health\\"
 # basedir="E:\\omar\\tor\\tut\\azure\\devops\\"
+# basedir="E:\\omar\\tor\\tut\\office\\excel\\"
 
 forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCourse.Net] ","[FreeCoursesOnline.Me] ","[TechnicsPub] ","[UDACITY] ","[LYNDA] ",
 "[GigaCourse.com] ","[CourseClub.NET] ", "[FreeTutorials.Us] ","[Tutorialsplanet.NET] ","[DesireCourse.Com] ","[CourseClub.Me] ", "[FreeTutorials.us] ",
@@ -17,7 +20,7 @@ forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCours
 ,"[FTUForum.com] ","[Apress] ","[FrontendMasters] ","Udemy - ","[Pluralsight] ","[FreeTutorials.Eu] ","[Frontend Masters] - ","[LINKEDIN LEARNING] ",
 "[pluralsight-training.net] ","[LinkedIn] ","(Video2Brain) ","[FreeCourseWeb] ","[Packt] ","[Skillshare] ","[UDEMY] ","[NulledPremium.com] ","[NulledPremium] "
 ,"[FTUForum.com] ","[FreeTutorials.Us] ","[FreeCourseWorld.Com] ","[AhLaNedu.com] ","[ CourseWikia.com ] ","[ CourseBoat.com ] ","[ CourseHulu.com ] "
-,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] "
+,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] ","[GigaCourse.Com] ","[ TutPig.com ] ","[ TutGee.com ] ","[Skillshare - Original] "
 ]
 # "[FreeCourseLab.com] ","[DesireCourse.Com] ","[FreeCoursesOnline.Me] [LINKEDIN LEARNING] ","[FreeTutorials.Eu] [UDEMY] ","[pluralsight.com] "
 def rename(name,forbidden_words):
