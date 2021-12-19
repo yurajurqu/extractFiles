@@ -1,0 +1,136 @@
+# extract.py
+
+# TODO 2
+# al extraer validar repetidos
+# permitir escoger varias carpetas o recursivo
+# iterar y borrar (no esperar al final)
+
+import os
+import zipfile
+from pathlib import Path
+import shutil
+import glob
+# currentDirectory="E:\\omar\\tor\\tut\\java\\spring\\"
+# currentDirectory="E:\\omar\\tor\\lang\\de\\"
+# currentDirectory="G:\cont\\tut\\music\\"
+# currentDirectory="D:\\cont\\draw\\tut\\"
+# currentDirectory="D:\\cont\\tut\\manage\\"
+# currentDirectory="g:\\cont\\tut\\java\\spring\\"
+# currentDirectory='d:\\cont\\tut\\azure\\'
+# currentDirectory="H:\\cont\\tut\\biz\\"
+# currentDirectory= 'd:\\c\\tut\\cloud\\'
+currentDirectory= 'E:\\omar\\tor\\tut\\azure\\devops\\'
+# '.'
+
+forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCourse.Net] ","[FreeCoursesOnline.Me] ","[TechnicsPub] ","[UDACITY] ","[LYNDA] ",
+"[GigaCourse.com] ","[CourseClub.NET] ", "[FreeTutorials.Us] ","[Tutorialsplanet.NET] ","[DesireCourse.Com] ","[CourseClub.Me] ", "[FreeTutorials.us] ",
+"[FreeAllCourse.Com] ","[ FreeCourseWeb ]","[FreeCourseSite.com] ","[FreeCourseLab.com] ","[Code4startup.Com] ","[PaidCoursesForFree.com] - ","[Tutorialsplanet.NET] ","[Tutorialguide.co] ","[Packtpub.Com] ","[OREILLY] "
+,"[FTUForum.com] ","[Apress] ","[FrontendMasters] ","Udemy - ","[Pluralsight] ","[FreeTutorials.Eu] ","[Frontend Masters] - ","[LINKEDIN LEARNING] ",
+"[pluralsight-training.net] ","[LinkedIn] ","(Video2Brain) ","[FreeCourseWeb] ","[Packt] ","[Skillshare] ","[UDEMY] ","[NulledPremium.com] ","[NulledPremium] "
+,"[FTUForum.com] ","[FreeTutorials.Us] ","[FreeCourseWorld.Com] ","[AhLaNedu.com] ","[ CourseWikia.com ] ","[ CourseBoat.com ] ","[ CourseHulu.com ] "
+,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] "]
+
+garbage_files= ["~Get All Courses Here !.url","Bonus Courses + Project Files.url","How to Support for Free.txt",
+"IMPORTANT!- How to Download Courses Privately When Download Button Not Visible.url",
+"Please Support by Visitng Ads","Resources.url"]
+
+# contentPath="~Get Your Course Here !"
+# filesToRemove=["~Get All Courses Here !.url","Please Support [ FreeCourseWeb.com ] by Visitng Ads.url","How to Support [ FreeCourseWeb.com ] for Free.txt"]
+# singleFile="[ FreeCourseWeb.com ] Master Confidence & Goal Setting From A World Record Holder"
+
+class ZipfileLongPaths(zipfile.ZipFile):
+    def _extract_member(self, member, targetpath, pwd):
+        targetpath = winapi_path(targetpath)
+        return zipfile.ZipFile._extract_member(self, member, targetpath, pwd)
+def rename(name,forbidden_words):
+    for word in forbidden_words:
+        name=name.replace(word,"")
+    return name
+def winapi_path(dos_path, encoding=None):
+    path = os.path.abspath(dos_path)
+    if path.startswith("\\\\"):
+        path = "\\\\?\\UNC\\" + path[2:]
+    else:
+        path = "\\\\?\\" + path
+    return path
+zipsToRemove=[]
+os.chdir(currentDirectory)
+files = [f for f in os.listdir(currentDirectory) if os.path.isfile(currentDirectory+f)]
+for currentFile in files:
+    print(currentFile)
+    if currentFile.endswith(".zip"):
+        print('processing')
+        foundCourseContent=False
+        with ZipfileLongPaths(currentDirectory+currentFile) as zip:
+            for zip_info in zip.infolist():
+                print(zip_info.filename)
+                if "~Get Your Course Here !" in  zip_info.filename:
+                    if not foundCourseContent:
+                        foundCourseContent=True
+                    zip_info.filename=zip_info.filename.replace("/~Get Your Course Here !","")
+                    zip_info.filename=rename(zip_info.filename,forbidden_words)
+
+                    zip.extract(zip_info)
+                        # print(zip_info.filename)
+                else:
+                # elif currentFile[:-3] in  zip_info.filename:
+
+
+                    if not foundCourseContent:
+                        foundCourseContent=True
+
+                    zip_info.filename=rename(zip_info.filename,forbidden_words)
+                    zip.extract(zip_info)
+                    # zip_info.filename=zip_info.filename.replace("/~Get Your Course Here !","")
+                    # print(zip_info.filename)
+
+        if foundCourseContent:
+            zipsToRemove.append(currentDirectory+currentFile)
+            # print('Eliminating '+currentDirectory+currentFile)
+            # os.remove(currentDirectory+currentFile)
+    else:
+        print('not zip')
+for file in zipsToRemove:
+    os.remove(file)
+
+# archive = ZipfileLongPaths(currentDirectory+singleFile+".zip")
+
+
+# for file in archive.namelist():
+#     if file.startswith(singleFile+"/~Get Your Course Here !/"):
+#         print(file)
+#         archive.extract(file)
+
+
+# filename=currentDirectory+singleFile
+# with zipfile.ZipFile(filename,"r") as zip_ref:
+#     zip_ref.extractall(currentDirectory)
+#     baseName=Path(filename).stem
+#     os.chdir(currentDirectory+baseName)
+#     for removeFile in filesToRemove:
+#         if os.path.exists(currentDirectory+baseName+"\\"+removeFile):
+#             os.remove(currentDirectory+baseName+"\\"+removeFile)
+#         else:
+#             print("Can not delete the file as it doesn't exists: "+removeFile)
+#     print(currentDirectory+baseName+"\\"+contentPath+"\\"+"*")
+#     os.chdir(currentDirectory+baseName+"\\"+contentPath)
+#     files = glob.glob(".\*")
+#     # print(files)
+#     for f in files:
+#         shutil.move(f, currentDirectory+baseName)
+#     os.chdir("..")
+#     filesToRemove=["Resources.url","Passwords - only if needed when extracting.txt","How to Support [ FreeCourseWeb.com ] for Free.txt","Bonus Courses + Project Files.url"]
+#     directoriesToRemove=["~Get Your Course Here !"]
+
+#     for removeFile in filesToRemove:
+#         if os.path.exists(removeFile):
+#             os.remove(removeFile)
+#         else:
+#             print("Can not delete the file as it doesn't exists: "+removeFile)
+#     for dirToRemoe in directoriesToRemove:
+#         if os.path.exists(dirToRemoe):
+#             os.rmdir(dirToRemoe)
+#         else:
+#             print("Can not delete the directory as it doesn't exists: "+dirToRemoe)
+#     os.chdir("..")
+# # os.remove(filename)
