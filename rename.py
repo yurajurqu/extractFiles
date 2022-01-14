@@ -1,11 +1,14 @@
+from distutils.command.clean import clean
+from operator import ne
 import os
 from os import listdir, rmdir
-from shutil import move
+from shutil import move, copy
 # basedir = 'd:\\content\\tut\\ss\\productivity'
 # basedir = 'd:\\content\\buch\\0fin\\'
 # basedir = 'd:\\c\\tut\\cross\\'
 # basedir="g:\\cont\\tut\\net\\"
-basedir="d:\\cont\\tut\\forensics\\"
+# basedir="d:\\content\\tut\\css\\"
+basedir="E:\\omar\\tor\\tut\\"
 # basedir="d:\\cont\\tut\\arch\\ts\\"
 # basedir = 'g:\\content\\buch\\0raspberrypi\\'
 # basedir="e:\\omar\\tor\\libros\\"
@@ -27,46 +30,93 @@ def rename(name,forbidden_words):
     for word in forbidden_words:
         name=name.replace(word,"")
     return name
-for fn in os.listdir(basedir):
-    currentFolderName =''
-    if not os.path.isdir(os.path.join(basedir, fn)):
-        print("No directorio: ",fn)
-        continue # Not a directory
-    else:
-        if any(word in fn for word in forbidden_words):
-            print("Incorrect folder name: ",fn)
-            # firstname,_,surname = fn.rpartition(' ')
-            newname=rename(fn,forbidden_words)
-            currentFolderName =fn
-            if newname != fn:
-                print("renaming from ",fn," to ",newname)
-                os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
-                currentFolderName = newname
+
+def cleanIndividualFolder(dirName):
+    basedir = dirName    
+    for fn in os.listdir(basedir):
+        currentFolderName =''
+        if not os.path.isdir(os.path.join(basedir, fn)):
+            #caso archivos
+            print("No directorio: ",fn)
+            continue # Not a directory
         else:
-            print("Nothing to do with file: ",fn)
-            currentFolderName =fn
-     
-        rootBase= os.path.join(basedir, currentFolderName)
-        meaninglessFolder = os.path.join(rootBase, '~Get Your Files Here !')
-        print(meaninglessFolder)
-        if os.path.exists(meaninglessFolder):
-            print('Gonna remove placeholder folder ', meaninglessFolder,' and promote content up to parent')
-            for filename in listdir(meaninglessFolder):
-                move(os.path.join(meaninglessFolder, filename), os.path.join(rootBase, filename))
-            rmdir(meaninglessFolder)
-        for fn in os.listdir(rootBase):
-            fpath = os.path.join(rootBase, fn)
-            if os.path.isdir(fpath):
-                if currentFolderName in fn:
-                    #mark folder as placeholder folder
-                    meaninglessFolder = os.path.join(rootBase, fn)
-                    print('Gonna remove placeholder folder ', fpath,' and promote content up to parent')
-                    for filename in listdir(meaninglessFolder):
-                        move(os.path.join(meaninglessFolder, filename), os.path.join(rootBase, filename))
-                    rmdir(meaninglessFolder)
+            #procesar directorios
+            if any(word in fn for word in forbidden_words):
+                print("Incorrect folder name: ",fn)
+                # firstname,_,surname = fn.rpartition(' ')
+                newname=rename(fn,forbidden_words)
+                currentFolderName =fn
+                if newname != fn:
+                    try:
+                        print("renaming from ",fn," to ",newname)
+                        os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+                    except FileExistsError:
+                        print('having a duplicate folder with same name')
+                        newname =  newname+ "_[0dup]"
+                        os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+                    currentFolderName = newname
             else:
-                #remove garbage files
-                lst = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt"]
-                if any(s in fn for s in lst):
-                    print('removing garbage file ',fpath)
-                    os.remove(fpath)
+                print("Nothing to do with file: ",fn)
+                currentFolderName =fn
+        
+            rootBase= os.path.join(basedir, currentFolderName)
+            meaninglessFolder = os.path.join(rootBase, '~Get Your Files Here !')
+            print(meaninglessFolder)
+            if os.path.exists(meaninglessFolder):
+                print('Gonna remove placeholder folder ', meaninglessFolder,' and promote content up to parent')
+                for filename in listdir(meaninglessFolder):
+                    move(os.path.join(meaninglessFolder, filename), os.path.join(rootBase, filename))
+                rmdir(meaninglessFolder)
+
+            #remove meaningless folder and promote content to parent folder    
+            for fn in os.listdir(rootBase):
+                fpath = os.path.join(rootBase, fn)
+                if os.path.isdir(fpath):
+                    if currentFolderName in fn:
+                        #mark folder as placeholder folder
+                        meaninglessFolder = os.path.join(rootBase, fn)
+                        print('Gonna remove placeholder folder ', fpath,' and promote content up to parent')
+                        for filename in listdir(meaninglessFolder):
+                            origin= os.path.join(meaninglessFolder, filename)
+                            destination = os.path.join(rootBase, filename)
+                            print("origin: ",origin)
+                            print("dest: ",destination)
+                            try:
+                                move(origin,destination)
+                            except:
+                                copy(origin, destination )
+                        rmdir(meaninglessFolder)
+                # else:
+                #     #remove garbage files
+                #     lst = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.","free audiobook version"]
+                #     if any(s in fn for s in lst):
+                #         print('removing garbage file ',fpath)
+                #         os.remove(fpath)
+                #     else:
+                #         print('ignoring file ', fpath)
+            #remove garbage files
+            for fn in os.listdir(rootBase):
+                fpath = os.path.join(rootBase, fn)
+                if not os.path.isdir(fpath):
+                    #remove garbage files
+                    lst = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.",
+                    "free audiobook version","Bonus Resources","Please Consider Making A Donation"]
+                    if any(s in fn for s in lst):
+                        print('removing garbage file ',fpath)
+                        os.remove(fpath)
+                    else:
+                        print('keeping file ', fpath)
+
+
+def processParentDirectory(parentDir):
+    for fn in os.listdir(parentDir):
+        filePath = os.path.join(parentDir, fn)
+        if not os.path.isdir(filePath):
+            continue
+        else:
+            cleanIndividualFolder(filePath)
+
+
+
+#cleanIndividualFolder(basedir)
+processParentDirectory(basedir)
