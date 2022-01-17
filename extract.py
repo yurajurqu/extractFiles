@@ -19,7 +19,8 @@ import glob
 # currentDirectory='d:\\cont\\tut\\azure\\'
 # currentDirectory="H:\\cont\\tut\\biz\\"
 # currentDirectory= 'd:\\c\\tut\\cloud\\'
-currentDirectory= 'E:\\omar\\tor\\tut\\azure\\devops\\'
+# currentDirectory= 'E:\\omar\\tor\\tut\\azure\\devops\\'
+currentDirectory="d:\\cont\\tut\\js\\angularjs\\"
 # '.'
 
 forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCourse.Net] ","[FreeCoursesOnline.Me] ","[TechnicsPub] ","[UDACITY] ","[LYNDA] ",
