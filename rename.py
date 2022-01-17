@@ -65,7 +65,9 @@ def cleanIndividualFolder(dirName):
             if os.path.exists(meaninglessFolder):
                 print('Gonna remove placeholder folder ', meaninglessFolder,' and promote content up to parent')
                 for filename in listdir(meaninglessFolder):
-                    move(os.path.join(meaninglessFolder, filename), os.path.join(rootBase, filename))
+                    src= os.path.join(meaninglessFolder, filename)
+                    dest = os.path.join(rootBase, filename)
+                    move(src, dest)
                 rmdir(meaninglessFolder)
 
             #remove meaningless folder and promote content to parent folder    
@@ -82,28 +84,23 @@ def cleanIndividualFolder(dirName):
                             print("origin: ",origin)
                             print("dest: ",destination)
                             try:
-                                move(origin,destination)
+                                move('\\\\?\\'+origin,'\\\\?\\'+destination)
                             except:
-                                copy(origin, destination )
+                                copy('\\\\?\\'+origin, '\\\\?\\'+destination )
                         rmdir(meaninglessFolder)
-                # else:
-                #     #remove garbage files
-                #     lst = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.","free audiobook version"]
-                #     if any(s in fn for s in lst):
-                #         print('removing garbage file ',fpath)
-                #         os.remove(fpath)
-                #     else:
-                #         print('ignoring file ', fpath)
             #remove garbage files
             for fn in os.listdir(rootBase):
                 fpath = os.path.join(rootBase, fn)
                 if not os.path.isdir(fpath):
                     #remove garbage files
                     lst = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.",
-                    "free audiobook version","Bonus Resources","Please Consider Making A Donation"]
+                    "free audiobook version","Bonus Resources","Please Consider Making A Donation","How to Support [ FreeCourseWeb.com ] for Free","Please Support Us","Please Support [ FreeCourseWeb.com ] by Visitng Ads"]
                     if any(s in fn for s in lst):
+                        try:
                         print('removing garbage file ',fpath)
                         os.remove(fpath)
+                        except PermissionError:
+                            print('PermissionError Permission Denied to eliminate file ', fpath)
                     else:
                         print('keeping file ', fpath)
 
