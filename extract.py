@@ -10,34 +10,11 @@ import zipfile
 from pathlib import Path
 import shutil
 import glob
-# currentDirectory="E:\\omar\\tor\\tut\\java\\spring\\"
-# currentDirectory="E:\\omar\\tor\\lang\\de\\"
-# currentDirectory="G:\cont\\tut\\music\\"
-# currentDirectory="D:\\cont\\draw\\tut\\"
-# currentDirectory="D:\\cont\\tut\\manage\\"
-# currentDirectory="g:\\cont\\tut\\java\\spring\\"
-# currentDirectory='d:\\cont\\tut\\azure\\'
-# currentDirectory="H:\\cont\\tut\\biz\\"
-# currentDirectory= 'd:\\c\\tut\\cloud\\'
-# currentDirectory= 'E:\\omar\\tor\\tut\\azure\\devops\\'
-currentDirectory="d:\\cont\\tut\\js\\angularjs\\"
-# '.'
+import properties
 
-forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCourse.Net] ","[FreeCoursesOnline.Me] ","[TechnicsPub] ","[UDACITY] ","[LYNDA] ",
-"[GigaCourse.com] ","[CourseClub.NET] ", "[FreeTutorials.Us] ","[Tutorialsplanet.NET] ","[DesireCourse.Com] ","[CourseClub.Me] ", "[FreeTutorials.us] ",
-"[FreeAllCourse.Com] ","[ FreeCourseWeb ]","[FreeCourseSite.com] ","[FreeCourseLab.com] ","[Code4startup.Com] ","[PaidCoursesForFree.com] - ","[Tutorialsplanet.NET] ","[Tutorialguide.co] ","[Packtpub.Com] ","[OREILLY] "
-,"[FTUForum.com] ","[Apress] ","[FrontendMasters] ","Udemy - ","[Pluralsight] ","[FreeTutorials.Eu] ","[Frontend Masters] - ","[LINKEDIN LEARNING] ",
-"[pluralsight-training.net] ","[LinkedIn] ","(Video2Brain) ","[FreeCourseWeb] ","[Packt] ","[Skillshare] ","[UDEMY] ","[NulledPremium.com] ","[NulledPremium] "
-,"[FTUForum.com] ","[FreeTutorials.Us] ","[FreeCourseWorld.Com] ","[AhLaNedu.com] ","[ CourseWikia.com ] ","[ CourseBoat.com ] ","[ CourseHulu.com ] "
-,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] ","[GigaCourse.Com] ","[ TutPig.com ] ","[ TutGee.com ] ","[Skillshare - Original] "]
+currentDirectory= properties.running_directory
+garbage_files= properties.garbage_files_zip
 
-garbage_files= ["~Get All Courses Here !.url","Bonus Courses + Project Files.url","How to Support for Free.txt",
-"IMPORTANT!- How to Download Courses Privately When Download Button Not Visible.url",
-"Please Support by Visitng Ads","Resources.url"]
-
-# contentPath="~Get Your Course Here !"
-# filesToRemove=["~Get All Courses Here !.url","Please Support [ FreeCourseWeb.com ] by Visitng Ads.url","How to Support [ FreeCourseWeb.com ] for Free.txt"]
-# singleFile="[ FreeCourseWeb.com ] Master Confidence & Goal Setting From A World Record Holder"
 
 class ZipfileLongPaths(zipfile.ZipFile):
     def _extract_member(self, member, targetpath, pwd):
@@ -54,8 +31,10 @@ def winapi_path(dos_path, encoding=None):
     else:
         path = "\\\\?\\" + path
     return path
+
 zipsToRemove=[]
 os.chdir(currentDirectory)
+print(currentDirectory)
 files = [f for f in os.listdir(currentDirectory) if os.path.isfile(currentDirectory+f)]
 for currentFile in files:
     print(currentFile)
@@ -69,7 +48,7 @@ for currentFile in files:
                     if not foundCourseContent:
                         foundCourseContent=True
                     zip_info.filename=zip_info.filename.replace("/~Get Your Course Here !","")
-                    zip_info.filename=rename(zip_info.filename,forbidden_words)
+                    zip_info.filename=rename(zip_info.filename,properties.forbidden_words)
 
                     zip.extract(zip_info)
                         # print(zip_info.filename)
@@ -80,7 +59,7 @@ for currentFile in files:
                     if not foundCourseContent:
                         foundCourseContent=True
 
-                    zip_info.filename=rename(zip_info.filename,forbidden_words)
+                    zip_info.filename=rename(zip_info.filename,properties.forbidden_words)
                     zip.extract(zip_info)
                     # zip_info.filename=zip_info.filename.replace("/~Get Your Course Here !","")
                     # print(zip_info.filename)

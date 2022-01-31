@@ -5,30 +5,10 @@ from os import listdir, rmdir
 from shutil import move, copy
 import stat
 import this
-# basedir = 'd:\\content\\tut\\ss\\productivity'
-# basedir = 'd:\\content\\buch\\0fin\\'
-basedir = 'd:\\content\\buch\\'
-# basedir = 'd:\\c\\tut\\cross\\'
-# basedir="g:\\cont\\tut\\net\\"
-# basedir="d:\\content\\tut\\css\\"
-# basedir="E:\\omar\\tor\\tut\\"
-# basedir="d:\\cont\\tut\\arch\\ts\\"
-# basedir = 'g:\\content\\buch\\0raspberrypi\\'
-# basedir="e:\\omar\\tor\\libros\\"
-# basedir = 'E:\\omar\\tor\\tut\\arch\\'
-# basedir="H:\\cont\\tut\\health\\"
-# basedir="E:\\omar\\tor\\tut\\azure\\devops\\"
-# basedir="E:\\omar\\tor\\tut\\office\\excel\\"
+import random  
 
-forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCourse.Net] ","[FreeCoursesOnline.Me] ","[TechnicsPub] ","[UDACITY] ","[LYNDA] ",
-"[GigaCourse.com] ","[CourseClub.NET] ", "[FreeTutorials.Us] ","[Tutorialsplanet.NET] ","[DesireCourse.Com] ","[CourseClub.Me] ", "[FreeTutorials.us] ",
-"[FreeAllCourse.Com] ","[ FreeCourseWeb ]","[FreeCourseSite.com] ","[FreeCourseLab.com] ","[Code4startup.Com] ","[PaidCoursesForFree.com] - ","[Tutorialsplanet.NET] ","[Tutorialguide.co] ","[Packtpub.Com] ","[OREILLY] "
-,"[FTUForum.com] ","[Apress] ","[FrontendMasters] ","Udemy - ","[Pluralsight] ","[FreeTutorials.Eu] ","[Frontend Masters] - ","[LINKEDIN LEARNING] ",
-"[pluralsight-training.net] ","[LinkedIn] ","(Video2Brain) ","[FreeCourseWeb] ","[Packt] ","[Skillshare] ","[UDEMY] ","[NulledPremium.com] ","[NulledPremium] "
-,"[FTUForum.com] ","[FreeTutorials.Us] ","[FreeCourseWorld.Com] ","[AhLaNedu.com] ","[ CourseWikia.com ] ","[ CourseBoat.com ] ","[ CourseHulu.com ] "
-,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] ","[GigaCourse.Com] ","[ TutPig.com ] ","[ TutGee.com ] ","[Skillshare - Original] ","[OneHack.Us] ","[ FreeCourseWeb ] ","[ FreeCourseWeb.com ] ",
-"[ www.Torrent9.EC ] ","[ www.Torrent9.PH ] ","[ www.UsaBit.com ] - ","[GkTorrent.org] ","[ Torrent9.cz ] ","[ www.T9.pe ] ","[ Torrent9.red ] ","[onehack.us] ","[www.ForumToutGagner.com] "
-]
+import properties
+import string  
 # "[FreeCourseLab.com] ","[DesireCourse.Com] ","[FreeCoursesOnline.Me] [LINKEDIN LEARNING] ","[FreeTutorials.Eu] [UDEMY] ","[pluralsight.com] "
 def cleanName(name,forbidden_words):
     for word in forbidden_words:
@@ -37,10 +17,10 @@ def cleanName(name,forbidden_words):
 
 def renameFileIfNeeded(basedir, fn):
     #procesar directorios
-    if any(word in fn for word in forbidden_words):
+    if any(word in fn for word in properties.forbidden_words):
         print("Incorrect file name: ",fn)
                 # firstname,_,surname = fn.rpartition(' ')
-        newname=cleanName(fn,forbidden_words)
+        newname=cleanName(fn,properties.forbidden_words)
         currentFolderName =fn
         if newname != fn:
             try:
@@ -48,7 +28,8 @@ def renameFileIfNeeded(basedir, fn):
                 os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
             except FileExistsError:
                 print('having a duplicate folder with same name')
-                newname =  newname+ "_[0dup]"
+                suffix = ''.join((random.choice(string.ascii_uppercase) for x in range(3)))
+                newname =  newname+ "_" + suffix
                 os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
             currentFolderName = newname
     else:
@@ -56,6 +37,27 @@ def renameFileIfNeeded(basedir, fn):
         currentFolderName =fn
     return currentFolderName
 
+def renameFile(basedir, fn, newname):
+    #procesar directorios
+    currentFolderName =fn
+    if newname != fn:
+        try:
+            print("renaming from ",fn," to ",newname)
+            os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+        except FileExistsError:
+            print('having a duplicate folder with same name')
+            newname =  newname+ "_[0dup]"
+            os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+        currentFolderName = newname
+    return currentFolderName
+def cleanIndividualFolderPlab(dirName):
+    basedir = dirName
+    for fn in os.listdir(basedir):
+        thisFile = os.path.join(basedir, fn)
+        if not os.path.isdir(thisFile):
+            print(fn)
+            renameFile(basedir, fn, fn.replace("plab","plab_ACP"))
+ 
 def cleanIndividualFolder(dirName):
     basedir = dirName
     empty_folders = []    
@@ -97,7 +99,7 @@ def cleanIndividualFolder(dirName):
                 if os.path.isdir(fpath):
                     print('currentFolderName '+ currentFolderName)
                     print('fn '+ fn)
-                    if fn in currentFolderName:
+                    if currentFolderName in fn:
                         #mark folder as placeholder folder
                         meaninglessFolder = os.path.join(rootBase, fn)
                         print('Gonna remove placeholder folder ', fpath,' and promote content up to parent')
@@ -119,8 +121,7 @@ def cleanIndividualFolder(dirName):
                 fpath = os.path.join(rootBase, fn)
                 if not os.path.isdir(fpath):
                     #remove garbage files
-                    lst = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.",
-                    "free audiobook version","Bonus Resources","Please Consider Making A Donation","How to Support [ FreeCourseWeb.com ] for Free","Please Support Us","Please Support [ FreeCourseWeb.com ] by Visitng Ads"]
+                    lst = properties.garbage_simple_files
                     if any(s in fn for s in lst):
                         try:
                             print('removing garbage file ',fpath)
@@ -147,6 +148,23 @@ def processParentDirectory(parentDir):
             cleanIndividualFolder(filePath)
 
 
-
-#cleanIndividualFolder(basedir)
+# basedir = 'd:\\content\\tut\\ss\\productivity'
+# basedir = 'd:\\content\\buch\\0fin\\'
+# basedir = 'd:\\content\\buch\\'
+# basedir = 'E:\\omar\\tor\\libros\\'
+basedir = properties.running_directory
+# basedir = 'C:\\ws\\scrapy\\nyaa_spider\\downloads\\full\\plab\\ACP\\acp\\'
+# basedir = 'd:\\c\\tut\\cross\\'
+# basedir="g:\\cont\\tut\\net\\"
+# basedir="d:\\content\\tut\\css\\"
+# basedir="E:\\omar\\tor\\tut\\"
+# basedir="d:\\cont\\tut\\arch\\ts\\"
+# basedir = 'g:\\content\\buch\\0raspberrypi\\'
+# basedir="e:\\omar\\tor\\libros\\"
+# basedir = 'E:\\omar\\tor\\tut\\arch\\'
+# basedir="H:\\cont\\tut\\health\\"
+# basedir="E:\\omar\\tor\\tut\\azure\\devops\\"
+# basedir="E:\\omar\\tor\\tut\\office\\excel\\"
+# cleanIndividualFolder(basedir)
+# cleanIndividualFolderPlab(basedir)
 processParentDirectory(basedir)
