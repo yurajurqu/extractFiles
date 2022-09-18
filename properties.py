@@ -13,21 +13,28 @@ garbage_files_zip= ["~Get All Courses Here !.url","Bonus Courses + Project Files
 
 
 garbage_simple_files = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.",
-                    "free audiobook version","Bonus Resources","Please Consider Making A Donation","How to Support [ FreeCourseWeb.com ] for Free","Please Support Us","Please Support [ FreeCourseWeb.com ] by Visitng Ads"]
+                    "free audiobook version","Bonus Resources","Please Consider Making A Donation","How to Support [ FreeCourseWeb.com ] for Free","Please Support Us","Please Support [ FreeCourseWeb.com ] by Visitng Ads"
+                    ,"Torrent_downloaded_from_Demonoid.is_"]
 
 
-running_directory = r'E:\omar\tor\tut\azure\devops\\'
+# rename parent no ending \
+
+# running_directory = r'E:\omar\tor\tut'
+# running_directory = r'E:\omar\tor\tut\js\angular'
+# running_directory = r'E:\omar\tor\tut\ss'
+# running_directory = r'E:\omar\tor\bu'
+# running_directory="E:\\omar\\tor\\tut\\azure\\devops\\"
 # running_directory = 'E:\\omar\\tor\\tut\\tools\\teams\\'
 # basedir = 'd:\\content\\tut\\ss\\productivity'
 # basedir = 'd:\\content\\buch\\0fin\\'
 # basedir = 'd:\\content\\buch\\'
-# basedir = 'E:\\omar\\tor\\libros\\'
+# running_directory = 'E:\\omar\\tor\\libros\\'
+running_directory = 'E:\\omar\\tor\\tut\\azure\\devops'
 # basedir = 'E:\\omar\\tor\\tut\\tools\\teams\\'
 # basedir = 'C:\\ws\\scrapy\\nyaa_spider\\downloads\\full\\plab\\ACP\\acp\\'
 # basedir = 'd:\\c\\tut\\cross\\'
 # basedir="g:\\cont\\tut\\net\\"
 # basedir="d:\\content\\tut\\css\\"
-# basedir="E:\\omar\\tor\\tut\\"
 # basedir="d:\\cont\\tut\\arch\\ts\\"
 # basedir = 'g:\\content\\buch\\0raspberrypi\\'
 # basedir="e:\\omar\\tor\\libros\\"
