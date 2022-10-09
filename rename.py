@@ -151,7 +151,7 @@ def cleanIndividualFolder(dirName):
                             logging.info('PermissionError Permission Denied to eliminate file ' + fpath)
                     else:
                         print('keeping file ', fpath)
-                        logging.info('keeping file ' + fpath)
+                        logging.info('keeping file ' + fpath.encode('ascii', 'ignore').decode('ascii'))
     for empty_folder in empty_folders:
         rmdir(empty_folder)
 
@@ -213,8 +213,11 @@ directories = [
     "E:\\omar\\tor\\tut\\sec\\",
     "E:\\omar\\tor\\tut\\read\\",
     "E:\\omar\\tor\\tut\\js\\",
-    "E:\\omar\\tor\\tut\\azure\\devops\\",
-    "E:\\omar\\tor\\tut\\office\\excel\\"
+    "E:\\omar\\tor\\tut\\azure\\",
+    "E:\\omar\\tor\\tut\\office\\excel\\",
+
+
+    "E:\\omar\\tor\\lang\\"
 ]
 
 for directory in directories:
