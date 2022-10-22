@@ -1,5 +1,6 @@
 import logging
-logging.basicConfig(filename='extract.log',level=logging.DEBUG)
+logging.basicConfig(filename='extract.log',level=logging.DEBUG,format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+    datefmt='%Y-%m-%d:%H:%M:%S')
 
 # extract.py
 

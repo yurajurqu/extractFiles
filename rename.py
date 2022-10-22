@@ -9,7 +9,8 @@ import this
 import random  
 import logging
 
-logging.basicConfig(filename='rename.log',level=logging.DEBUG)
+logging.basicConfig(filename='rename.log',level=logging.DEBUG,format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+    datefmt='%Y-%m-%d:%H:%M:%S')
 
 import properties
 import string  
@@ -212,9 +213,13 @@ directories = [
     "E:\\omar\\tor\\tut\\ss\\",
     "E:\\omar\\tor\\tut\\sec\\",
     "E:\\omar\\tor\\tut\\read\\",
+    "E:\\omar\\tor\\tut\\design\\",
     "E:\\omar\\tor\\tut\\js\\",
+	"E:\\omar\\tor\\tut\\fin\\",
     "E:\\omar\\tor\\tut\\azure\\",
     "E:\\omar\\tor\\tut\\office\\excel\\",
+    "E:\\omar\\tor\\tut\\music\\",
+    "E:\\omar\\tor\\tut\\music\\piano\\",
 
 
     "E:\\omar\\tor\\lang\\"
@@ -222,6 +227,7 @@ directories = [
 
 for directory in directories:
     if(os.path.exists(directory)):
+        logging.info("Processing directory "+ directory)
         processParentDirectory(directory)
     else:
         logging.info('Directory '+directory +" does not exist")
