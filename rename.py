@@ -222,7 +222,8 @@ directories = [
     "E:\\omar\\tor\\tut\\music\\piano\\",
 
 
-    "E:\\omar\\tor\\lang\\"
+    "E:\\omar\\tor\\lang\\",
+    "E:\\omar\\tor\\draw\\",
 ]
 
 for directory in directories:
