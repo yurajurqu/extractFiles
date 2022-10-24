@@ -1,3 +1,4 @@
+# encoding=utf8
 from cmath import log
 from distutils.command.clean import clean
 from operator import ne
