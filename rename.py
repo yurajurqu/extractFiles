@@ -171,27 +171,6 @@ def processParentDirectory(parentDir):
                 continue
             cleanIndividualFolder(filePath)
 
-
-# basedir = 'd:\\content\\tut\\ss\\productivity'
-# basedir = 'd:\\content\\buch\\0fin\\'
-# basedir = 'd:\\content\\buch\\'
-# basedir = 'E:\\omar\\tor\\libros\\'
-# basedir = properties.running_directory
-# basedir = 'C:\\ws\\scrapy\\nyaa_spider\\downloads\\full\\plab\\ACP\\acp\\'
-# basedir = 'd:\\c\\tut\\cross\\'
-# basedir="g:\\cont\\tut\\net\\"
-# basedir="d:\\content\\tut\\css\\"
-# basedir="E:\\omar\\tor\\tut\\"
-# basedir="d:\\cont\\tut\\arch\\ts\\"
-# basedir = 'g:\\content\\buch\\0raspberrypi\\'
-# basedir="e:\\omar\\tor\\libros\\"
-# basedir = 'E:\\omar\\tor\\tut\\arch\\'
-# basedir="H:\\cont\\tut\\health\\"
-# basedir="E:\\omar\\tor\\tut\\azure\\devops\\"
-# basedir="E:\\omar\\tor\\tut\\office\\excel\\"
-# cleanIndividualFolder(basedir)
-# cleanIndividualFolderPlab(basedir)
-
 directories = [
     'E:\\omar\\tor\\libros\\',
     'E:\\omar\\tor\\libros\\0js\\',
