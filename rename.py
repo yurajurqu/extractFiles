@@ -10,6 +10,11 @@ import this
 import random  
 import logging
 
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
 logging.basicConfig(filename='rename.log',level=logging.DEBUG,format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
     datefmt='%Y-%m-%d:%H:%M:%S')
 
@@ -153,7 +158,7 @@ def cleanIndividualFolder(dirName):
                             logging.info('PermissionError Permission Denied to eliminate file ' + fpath)
                     else:
                         print('keeping file ', fpath)
-                        logging.info('keeping file ' + fpath.encode('ascii', 'ignore').decode('ascii'))
+                        logging.info('keeping file ' + fpath)
     for empty_folder in empty_folders:
         rmdir(empty_folder)
 
@@ -194,6 +199,7 @@ directories = [
     "E:\\omar\\tor\\tut\\sec\\",
     "E:\\omar\\tor\\tut\\read\\",
     "E:\\omar\\tor\\tut\\design\\",
+    "E:\\omar\\tor\\tut\\manage\\",
     "E:\\omar\\tor\\tut\\js\\",
 	"E:\\omar\\tor\\tut\\fin\\",
     "E:\\omar\\tor\\tut\\azure\\",
