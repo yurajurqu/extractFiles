@@ -9,10 +9,11 @@ import stat
 import this
 import random  
 import logging
-
+import errno
 import sys  
-
+from errno import EACCES, EPERM, ENOENT
 reload(sys)  
+
 sys.setdefaultencoding('utf8')
 
 logging.basicConfig(filename='rename.log',level=logging.DEBUG,format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
@@ -39,12 +40,16 @@ def renameFileIfNeeded(basedir, fn):
                 print("renaming from ",fn," to ",newname)
                 logging.info("renaming from " + fn + " to " +newname)
                 os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
-            except FileExistsError:
-                print('having a duplicate folder with same name')
-                logging.error('having a duplicate folder with same name')
-                suffix = ''.join((random.choice(string.ascii_uppercase) for x in range(3)))
-                newname =  newname+ "_" + suffix
-                os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+            except OSError as e:
+                if e.errno == errno.EEXIST:
+                    print('having a duplicate folder with same name')
+                    logging.error('having a duplicate folder with same name')
+                    suffix = ''.join((random.choice(string.ascii_uppercase) for x in range(3)))
+                    newname =  newname+ "_" + suffix
+                    os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+                else:
+                    raise
+                
             currentFolderName = newname
     else:
         print("Filename is correct: ",fn)
@@ -60,11 +65,14 @@ def renameFile(basedir, fn, newname):
             print("renaming from ",fn," to ",newname)
             logging.info("renaming from " + fn + " to " + newname)
             os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
-        except FileExistsError:
-            print('having a duplicate folder with same name')
-            logging.error('having a duplicate folder with same name')
-            newname =  newname+ "_[0dup]"
-            os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                print('having a duplicate folder with same name')
+                logging.error('having a duplicate folder with same name')
+                newname =  newname+ "_[0dup]"
+                os.rename(os.path.join(basedir, fn),os.path.join(basedir, newname))
+            else:
+                raise
         currentFolderName = newname
     return currentFolderName
 def cleanIndividualFolderPlab(dirName):
@@ -87,7 +95,7 @@ def cleanIndividualFolder(dirName):
             print("No directorio: ",fn)
             logging.info("No directorio: " + fn)
             #TODO validar si es necesario renombrar
-            #renameFileIfNeeded(dirName, fn)
+            renameFileIfNeeded(dirName, fn)
         else:
 
             #remove if folder is empty
@@ -153,9 +161,12 @@ def cleanIndividualFolder(dirName):
                             print('removing garbage file ',fpath)
                             logging.info('removing garbage file ' + fpath)
                             os.remove('\\\\?\\'+fpath)
-                        except PermissionError:
-                            print('PermissionError Permission Denied to eliminate file ', fpath)
-                            logging.info('PermissionError Permission Denied to eliminate file ' + fpath)
+                        except (IOError, OSError) as e:
+                            if e.errno==EPERM or e.errno==EACCES:
+                                print('PermissionError Permission Denied to eliminate file ', fpath)
+                                logging.info('PermissionError Permission Denied to eliminate file ' + fpath)
+                            else:
+                                raise
                     else:
                         print('keeping file ', fpath)
                         logging.info('keeping file ' + fpath)
@@ -167,6 +178,7 @@ def cleanIndividualFolder(dirName):
 def processParentDirectory(parentDir):
     for fn in os.listdir(parentDir):
         filePath = os.path.join(parentDir, fn)
+        logging.info("Processing subfile "+ fn)
         if not os.path.isdir(filePath):
             renameFileIfNeeded(parentDir,fn)
         else:
@@ -175,6 +187,7 @@ def processParentDirectory(parentDir):
                 print("Directory "+ filePath+" is blacklisted")
                 logging.info("Directory "+ filePath+" is blacklisted")
                 continue
+            logging.info("Processing sub directory "+ directory)
             cleanIndividualFolder(filePath)
 
 directories = [
@@ -183,8 +196,11 @@ directories = [
     'E:\\omar\\tor\\libros\\0google\\',
 
     'd:\\content\\tut\\ss\\productivity',
+	'd:\\content\\tut\\js\\',
     'd:\\content\\buch\\0fin\\',
     'd:\\content\\buch\\',
+	
+	'd:\\cont\\tut\\js\\',
 
     "E:\\omar\\tor\\tut\\",
     "E:\\omar\\tor\\tut\\arch\\",
@@ -210,6 +226,11 @@ directories = [
 
     "E:\\omar\\tor\\lang\\",
     "E:\\omar\\tor\\draw\\",
+	
+	'd:\\cont\\tut\\',
+	'd:\\cont\\tut\\js\\',
+
+ 
 ]
 
 for directory in directories:
