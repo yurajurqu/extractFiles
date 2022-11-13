@@ -178,64 +178,68 @@ def cleanIndividualFolder(dirName):
 def processParentDirectory(parentDir):
     for fn in os.listdir(parentDir):
         filePath = os.path.join(parentDir, fn)
-        logging.info("Processing subfile "+ fn)
         if not os.path.isdir(filePath):
+            logging.info("Processing subfile "+ fn)
             renameFileIfNeeded(parentDir,fn)
         else:
+            logging.info("Processing sub directory "+ fn)
             blacklisted_directories= ["The Project Gutenberg EBook pgdvd042010"]
             if fn in blacklisted_directories:
                 print("Directory "+ filePath+" is blacklisted")
                 logging.info("Directory "+ filePath+" is blacklisted")
                 continue
-            logging.info("Processing sub directory "+ directory)
+            logging.info("Processing sub directory "+ fn)
             cleanIndividualFolder(filePath)
 
-directories = [
-    'E:\\omar\\tor\\libros\\',
-    'E:\\omar\\tor\\libros\\0js\\',
-    'E:\\omar\\tor\\libros\\0google\\',
 
-    'd:\\content\\tut\\ss\\productivity',
-	'd:\\content\\tut\\js\\',
-    'd:\\content\\buch\\0fin\\',
-    'd:\\content\\buch\\',
-	
-	'd:\\cont\\tut\\js\\',
+if __name__ == "__main__":
 
-    "E:\\omar\\tor\\tut\\",
-    "E:\\omar\\tor\\tut\\arch\\",
-    "E:\\omar\\tor\\tut\\google\\",
-    "E:\\omar\\tor\\tut\\ai\\",
-    "E:\\omar\\tor\\tut\\tools\\",
-    "E:\\omar\\tor\\tut\\tools\\linkedin\\",
-    "E:\\omar\\tor\\tut\\tools\\teams\\",
-    "E:\\omar\\tor\\tut\\write\\",
-    "E:\\omar\\tor\\tut\\blockchain\\",
-    "E:\\omar\\tor\\tut\\ss\\",
-    "E:\\omar\\tor\\tut\\sec\\",
-    "E:\\omar\\tor\\tut\\read\\",
-    "E:\\omar\\tor\\tut\\design\\",
-    "E:\\omar\\tor\\tut\\manage\\",
-    "E:\\omar\\tor\\tut\\js\\",
-	"E:\\omar\\tor\\tut\\fin\\",
-    "E:\\omar\\tor\\tut\\azure\\",
-    "E:\\omar\\tor\\tut\\office\\excel\\",
-    "E:\\omar\\tor\\tut\\music\\",
-    "E:\\omar\\tor\\tut\\music\\piano\\",
+    directories = [
+        'E:\\omar\\tor\\libros\\',
+        'E:\\omar\\tor\\libros\\0js\\',
+        'E:\\omar\\tor\\libros\\0google\\',
+
+        'd:\\content\\tut\\ss\\productivity',
+        'd:\\content\\tut\\js\\',
+        'd:\\content\\buch\\0fin\\',
+        'd:\\content\\buch\\',
+        
+        'd:\\cont\\tut\\js\\',
+
+        "E:\\omar\\tor\\tut\\",
+        "E:\\omar\\tor\\tut\\arch\\",
+        "E:\\omar\\tor\\tut\\google\\",
+        "E:\\omar\\tor\\tut\\ai\\",
+        "E:\\omar\\tor\\tut\\tools\\",
+        "E:\\omar\\tor\\tut\\tools\\linkedin\\",
+        "E:\\omar\\tor\\tut\\tools\\teams\\",
+        "E:\\omar\\tor\\tut\\write\\",
+        "E:\\omar\\tor\\tut\\blockchain\\",
+        "E:\\omar\\tor\\tut\\ss\\",
+        "E:\\omar\\tor\\tut\\sec\\",
+        "E:\\omar\\tor\\tut\\read\\",
+        "E:\\omar\\tor\\tut\\design\\",
+        "E:\\omar\\tor\\tut\\manage\\",
+        "E:\\omar\\tor\\tut\\js\\",
+        "E:\\omar\\tor\\tut\\fin\\",
+        "E:\\omar\\tor\\tut\\azure\\",
+        "E:\\omar\\tor\\tut\\office\\excel\\",
+        "E:\\omar\\tor\\tut\\music\\",
+        "E:\\omar\\tor\\tut\\music\\piano\\",
 
 
-    "E:\\omar\\tor\\lang\\",
-    "E:\\omar\\tor\\draw\\",
-	
-	'd:\\cont\\tut\\',
-	'd:\\cont\\tut\\js\\',
+        "E:\\omar\\tor\\lang\\",
+        "E:\\omar\\tor\\draw\\",
+        
+        'd:\\cont\\tut\\',
+        'd:\\cont\\tut\\js\\',
 
- 
-]
+    
+    ]
 
-for directory in directories:
-    if(os.path.exists(directory)):
-        logging.info("Processing directory "+ directory)
-        processParentDirectory(directory)
-    else:
-        logging.info('Directory '+directory +" does not exist")
+    for directory in directories:
+        if(os.path.exists(directory)):
+            logging.info("Processing directory "+ directory)
+            processParentDirectory(directory)
+        else:
+            logging.info('Directory '+directory +" does not exist")
