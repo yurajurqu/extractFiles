@@ -5,7 +5,7 @@ forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCours
 "[pluralsight-training.net] ","[LinkedIn] ","(Video2Brain) ","[FreeCourseWeb] ","[Packt] ","[Skillshare] ","[UDEMY] ","[NulledPremium.com] ","[NulledPremium] "
 ,"[FTUForum.com] ","[FreeTutorials.Us] ","[FreeCourseWorld.Com] ","[AhLaNedu.com] ","[ CourseWikia.com ] ","[ CourseBoat.com ] ","[ CourseHulu.com ] "
 ,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] ","[GigaCourse.Com] ","[ TutPig.com ] ","[ TutGee.com ] ","[Skillshare - Original] ",
-"[ FreeCryptoLearn.com ] ","[Udemy] ","[PimpMyMind] "]
+"[ FreeCryptoLearn.com ] ","[Udemy] ","[PimpMyMind] ","[TutsNode.com] - "]
 
 garbage_files_zip= ["~Get All Courses Here !.url","Bonus Courses + Project Files.url","How to Support for Free.txt",
 "IMPORTANT!- How to Download Courses Privately When Download Button Not Visible.url",

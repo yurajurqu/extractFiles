@@ -39,7 +39,8 @@ def extractZipsFromCurrentDir(argDirectory):
     currentDirectory = ''
     if argDirectory:
         currentDirectory = argDirectory
-    currentDirectory= properties.running_directory
+    else:
+        currentDirectory= properties.running_directory
     garbage_files= properties.garbage_files_zip
 
     zipsToRemove=[]
