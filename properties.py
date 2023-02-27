@@ -1,20 +1,16 @@
-forbidden_words=["[ FreeCourseWeb.com ] ","[ DevCourseWeb.com ] ", "[DesireCourse.Net] ","[FreeCoursesOnline.Me] ","[TechnicsPub] ","[UDACITY] ","[LYNDA] ",
-"[GigaCourse.com] ","[CourseClub.NET] ", "[FreeTutorials.Us] ","[Tutorialsplanet.NET] ","[DesireCourse.Com] ","[CourseClub.Me] ", "[FreeTutorials.us] ",
-"[FreeAllCourse.Com] ","[ FreeCourseWeb ]","[FreeCourseSite.com] ","[FreeCourseLab.com] ","[Code4startup.Com] ","[PaidCoursesForFree.com] - ","[Tutorialsplanet.NET] ","[Tutorialguide.co] ","[Packtpub.Com] ","[OREILLY] "
-,"[FTUForum.com] ","[Apress] ","[FrontendMasters] ","Udemy - ","[Pluralsight] ","[FreeTutorials.Eu] ","[Frontend Masters] - ","[LINKEDIN LEARNING] ",
-"[pluralsight-training.net] ","[LinkedIn] ","(Video2Brain) ","[FreeCourseWeb] ","[Packt] ","[Skillshare] ","[UDEMY] ","[NulledPremium.com] ","[NulledPremium] "
-,"[FTUForum.com] ","[FreeTutorials.Us] ","[FreeCourseWorld.Com] ","[AhLaNedu.com] ","[ CourseWikia.com ] ","[ CourseBoat.com ] ","[ CourseHulu.com ] "
-,"[pluralsight.com] ","[ TutSala.com ] ","[ TutGator.com ] ","[ CourseLala.com ] ","[ CourseMega.com ] ","[ CoursePig.com ] ","[GigaCourse.Com] ","[ TutPig.com ] ","[ TutGee.com ] ","[Skillshare - Original] ",
-"[ FreeCryptoLearn.com ] ","[Udemy] ","[PimpMyMind] ","[TutsNode.com] - "]
+forbidden_words = ["[ FreeCourseWeb.com ] ", "[ DevCourseWeb.com ] ", "[DesireCourse.Net] ", "[FreeCoursesOnline.Me] ", "[TechnicsPub] ", "[UDACITY] ", "[LYNDA] ",
+                   "[GigaCourse.com] ", "[CourseClub.NET] ", "[FreeTutorials.Us] ", "[Tutorialsplanet.NET] ", "[DesireCourse.Com] ", "[CourseClub.Me] ", "[FreeTutorials.us] ",
+                   "[FreeAllCourse.Com] ", "[ FreeCourseWeb ]", "[FreeCourseSite.com] ", "[FreeCourseLab.com] ", "[Code4startup.Com] ", "[PaidCoursesForFree.com] - ", "[Tutorialsplanet.NET] ", "[Tutorialguide.co] ", "[Packtpub.Com] ", "[OREILLY] ", "[FTUForum.com] ", "[Apress] ", "[FrontendMasters] ", "Udemy - ", "[Pluralsight] ", "[FreeTutorials.Eu] ", "[Frontend Masters] - ", "[LINKEDIN LEARNING] ",
+                   "[pluralsight-training.net] ", "[LinkedIn] ", "(Video2Brain) ", "[FreeCourseWeb] ", "[Packt] ", "[Skillshare] ", "[UDEMY] ", "[NulledPremium.com] ", "[NulledPremium] ", "[FTUForum.com] ", "[FreeTutorials.Us] ", "[FreeCourseWorld.Com] ", "[AhLaNedu.com] ", "[ CourseWikia.com ] ", "[ CourseBoat.com ] ", "[ CourseHulu.com ] ", "[pluralsight.com] ", "[ TutSala.com ] ", "[ TutGator.com ] ", "[ CourseLala.com ] ", "[ CourseMega.com ] ", "[ CoursePig.com ] ", "[GigaCourse.Com] ", "[ TutPig.com ] ", "[ TutGee.com ] ", "[Skillshare - Original] ",
+                   "[ FreeCryptoLearn.com ] ", "[Udemy] ", "[PimpMyMind] ", "[TutsNode.com] - ", "[Online-Courses.Club] "]
 
-garbage_files_zip= ["~Get All Courses Here !.url","Bonus Courses + Project Files.url","How to Support for Free.txt",
-"IMPORTANT!- How to Download Courses Privately When Download Button Not Visible.url",
-"Please Support by Visitng Ads","Resources.url"]
+garbage_files_zip = ["~Get All Courses Here !.url", "Bonus Courses + Project Files.url", "How to Support for Free.txt",
+                     "IMPORTANT!- How to Download Courses Privately When Download Button Not Visible.url",
+                     "Please Support by Visitng Ads", "Resources.url"]
 
 
-garbage_simple_files = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt","BookRAR.Org","more books, audiobooks, magazines etc.",
-                    "free audiobook version","Bonus Resources","Please Consider Making A Donation","How to Support [ FreeCourseWeb.com ] for Free","Please Support Us","Please Support [ FreeCourseWeb.com ] by Visitng Ads"
-                    ,"Torrent_downloaded_from_Demonoid.is_"]
+garbage_simple_files = ["~uTorrentPartFile_", "Downloaded from", "TutsNode.com.txt", "BookRAR.Org", "more books, audiobooks, magazines etc.",
+                        "free audiobook version", "Bonus Resources", "Please Consider Making A Donation", "How to Support [ FreeCourseWeb.com ] for Free", "Please Support Us", "Please Support [ FreeCourseWeb.com ] by Visitng Ads", "Torrent_downloaded_from_Demonoid.is_"]
 
 
 # rename parent no ending \
