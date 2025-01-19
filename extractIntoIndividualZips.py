@@ -26,6 +26,7 @@ def processParentDirectory(parentDirectory):
             print("Processing directory: " + name)
             directory = os.path.join(root, name)
             processDirectory(directory)
+    alertEndOfProcessing()
 
 def processDirectory(directory):
     print("Processing directory: " + directory)
@@ -38,6 +39,7 @@ def processDirectory(directory):
                 extractRarFile(rarFile)
                 extractedFolder = None
                 for root, dirs, files in os.walk(directory):
+                    #TODO we only need to find the direct child dir, not grand children
                     for name in dirs:
                         print("Processing directory xxx: " + name)
                         if extractedFolder is None:
@@ -49,7 +51,6 @@ def processDirectory(directory):
                     deleteExtractedFolder(extractedFolder)
                 else:
                     print("!!!!Extracted folder does not exist: " + extractedFolder)
-    alertEndOfProcessing()
 
 def alertEndOfProcessing():
     # Frequency (Hz) and Duration (ms)
