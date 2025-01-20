@@ -1,4 +1,5 @@
 # we need to add the C:\Program Files\WinRAR folder to the PATH environment variable and use CMD to run the script
+# command C:/Users/omarb/AppData/Local/Programs/Python/Python38-32/python.exe c:/ws/extractFiles/extractIntoIndividualZips.py
 import os
 import sys
 import rarfile
@@ -27,14 +28,21 @@ def processParentDirectory(parentDirectory):
             directory = os.path.join(root, name)
             processDirectory(directory)
     alertEndOfProcessing()
+    alertEndOfProcessing()
+    alertEndOfProcessing()
 
 def processDirectory(directory):
     print("Processing directory: " + directory)
     for root, dirs, files in os.walk(directory):
+        print(dirs)
+        print(files)
+        print(root)
         for name in files:
             if name.endswith(".rar"):
                 print("Processing rar file: " + name)
                 rarFile = os.path.join(root, name)
+                print("root: " + root)
+                print("name: " + name)
                 print("Found rar file: " + rarFile)
                 extractRarFile(rarFile)
                 extractedFolder = None
@@ -51,6 +59,7 @@ def processDirectory(directory):
                     deleteExtractedFolder(extractedFolder)
                 else:
                     print("!!!!Extracted folder does not exist: " + extractedFolder)
+                alertEndOfProcessing()
 
 def alertEndOfProcessing():
     # Frequency (Hz) and Duration (ms)
